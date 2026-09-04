@@ -1,0 +1,9 @@
+/download/Rumi-1.0.dmg
+  Content-Type: application/x-apple-diskimage
+  Content-Disposition: attachment; filename="Rumi-1.0.dmg"
+
+/assets/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/sprites/*
+  Cache-Control: public, max-age=31536000, immutable

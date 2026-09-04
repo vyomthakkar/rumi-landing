@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <clipPath id="rumi-frame">
+      <rect x="760" y="180" width="400" height="400"/>
+    </clipPath>
+    <style>
+      @font-face { font-family: Silkscreen; src: url("fonts/Silkscreen-Regular.ttf"); }
+      @font-face { font-family: Atkinson; src: url("fonts/AtkinsonHyperlegible-Regular.ttf"); }
+      .title { font: 56px Silkscreen, monospace; fill: #22202A; }
+      .body { font: 28px Atkinson, sans-serif; fill: #22202A; }
+      .menu { font: 20px Atkinson, sans-serif; fill: #FFFFFF; }
+      .tag { font: 17px Atkinson, sans-serif; fill: #DAD3C3; }
+      .time { fill: #C8A032; font-weight: 700; }
+    </style>
+  </defs>
+  <rect width="1200" height="630" fill="#DAD3C3"/>
+  <rect width="1200" height="54" fill="#58544D"/>
+  <image href="icon_1024.png" x="30" y="11" width="32" height="32"/>
+  <text class="menu" x="73" y="35">Rumi</text>
+  <rect x="1000" y="9" width="166" height="36" fill="#22202A" stroke="#FFFFFF"/>
+  <text class="tag" x="1015" y="33">Focus <tspan class="time">24:13</tspan></text>
+  <text class="title" x="76" y="205">Rumi lives</text>
+  <text class="title" x="76" y="272">on your Mac.</text>
+  <text class="body" x="78" y="336">A small pixel cat who sits in the corner</text>
+  <text class="body" x="78" y="377">of your screen and asks for dinner at nine.</text>
+  <g clip-path="url(#rumi-frame)" style="image-rendering:pixelated">
+    <image href="sprites/sheet.png" x="760" y="180" width="52400" height="400"/>
+  </g>
+</svg>
