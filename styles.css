@@ -156,7 +156,7 @@ h4 {
 
 .menu-bar__inner {
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto 1fr;
   align-items: center;
   width: min(100% - 32px, 1040px);
   height: 44px;
@@ -191,25 +191,6 @@ h4 {
   display: flex;
   gap: 28px;
   margin-left: 54px;
-}
-
-.timer-tag {
-  display: inline-flex;
-  align-items: center;
-  height: 26px;
-  padding: 0 6px;
-  border: 1px solid var(--white);
-  background: var(--navy);
-  color: var(--cream);
-  font-size: 14px;
-  line-height: 1;
-  white-space: nowrap;
-}
-
-.timer-tag strong {
-  margin-left: 5px;
-  color: var(--gold);
-  font-weight: 700;
 }
 
 .hero {
@@ -304,8 +285,12 @@ h4 {
   width: calc(35 * var(--px));
   height: calc(40 * var(--px));
   margin-bottom: 48px;
-  cursor: ew-resize;
+  cursor: grab;
   touch-action: none;
+}
+
+.rumi-stage:active {
+  cursor: grabbing;
 }
 
 #rumi-canvas,
@@ -339,12 +324,17 @@ h4 {
 .rumi-hint {
   position: absolute;
   top: 100%;
-  right: 0;
-  left: 0;
-  margin: 8px 0 0;
+  left: calc(15 * var(--px));
+  margin: 6px 0 0;
+  transform: translateX(-50%);
   color: var(--fur);
   font-size: 14px;
-  text-align: center;
+  font-style: italic;
+  transition: opacity 400ms ease;
+}
+
+.rumi-stage.is-petted .rumi-hint {
+  opacity: 0;
 }
 
 .section {
@@ -376,6 +366,17 @@ h4 {
   margin-bottom: 40px;
 }
 
+.menu-shot {
+  max-width: 460px;
+  margin: 0 0 78px;
+}
+
+.menu-shot figcaption {
+  margin-top: 12px;
+  color: var(--fur);
+  font-size: 15px;
+}
+
 .feature {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
@@ -404,21 +405,25 @@ h4 {
   overflow: hidden;
 }
 
-.clip-window video {
+.clip-media {
   position: absolute;
   z-index: 2;
-  inset: 0;
+  top: 50%;
+  left: 50%;
   display: none;
-  width: 100%;
-  height: 100%;
-  background: var(--cream);
-  object-fit: cover;
+  max-width: 100%;
+  max-height: 100%;
+  transform: translate(-50%, -50%);
   image-rendering: crisp-edges;
   image-rendering: pixelated;
 }
 
-.clip-window.has-video video {
+.clip-window.has-media .clip-media {
   display: block;
+}
+
+.clip-window.has-media .clip-still {
+  display: none;
 }
 
 .clip-still {
@@ -520,12 +525,12 @@ h4 {
 .about__portrait {
   position: relative;
   grid-column: 9 / span 4;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 3 / 4;
   overflow: hidden;
 }
 
 .about__portrait img {
-  width: 58%;
+  width: 100%;
   height: 100%;
   object-fit: cover;
 }
@@ -542,9 +547,7 @@ h4 {
 }
 
 .about__portrait.has-photo .portrait-still {
-  left: 79%;
-  width: 100px;
-  height: 100px;
+  display: none;
 }
 
 footer {
@@ -629,10 +632,6 @@ footer {
     gap: 14px;
     margin-left: 18px;
     font-size: 13px;
-  }
-
-  .timer-tag {
-    font-size: 12px;
   }
 
   .pixel-button {
@@ -738,7 +737,7 @@ footer {
   }
 
   .about__portrait {
-    width: min(100%, 440px);
+    width: min(100%, 320px);
   }
 }
 
@@ -749,8 +748,7 @@ footer {
 }
 
 @media (max-width: 440px) {
-  .menu-bar__brand span,
-  .timer-tag > span {
+  .menu-bar__brand span {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -762,10 +760,6 @@ footer {
   .menu-bar__links {
     gap: 12px;
     margin-left: 10px;
-  }
-
-  .timer-tag strong {
-    margin-left: 0;
   }
 
   .rumi-stage {
@@ -792,8 +786,13 @@ footer {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .clip-window video {
-    display: none !important;
+  .rumi-hint {
+    transition: none;
+  }
+
+  /* Animated slots stay unloaded; the screenshots and sprite stills remain. */
+  .clip-window.has-media .clip-media[data-animated] {
+    display: none;
   }
 
   *,
