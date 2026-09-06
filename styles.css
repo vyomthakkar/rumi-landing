@@ -589,7 +589,7 @@ footer {
     flex-direction: column;
     align-items: stretch;
     gap: 0;
-    padding: 40px 0;
+    padding: 28px 0;
   }
 
   .hero__copy {
@@ -750,12 +750,6 @@ footer {
   }
 }
 
-@media (max-width: 640px) {
-  .rumi-stage {
-    --px: 4px;
-  }
-}
-
 @media (max-width: 400px) {
   .footer__inner {
     grid-template-columns: 1fr;
@@ -767,6 +761,23 @@ footer {
 
   .footer__dmg {
     justify-self: center;
+  }
+}
+
+@media (max-width: 640px) {
+  /* The strip is a Mac menu bar, and that reading only lands on a big screen.
+     At phone size it is just site chrome, and it costs 36px of a short
+     viewport, so the page starts on the headline instead. */
+  .menu-bar {
+    display: none;
+  }
+
+  .hero {
+    min-height: 100svh;
+  }
+
+  .skip-link:focus {
+    top: 12px;
   }
 }
 
@@ -783,10 +794,6 @@ footer {
   .menu-bar__links {
     gap: 12px;
     margin-left: 10px;
-  }
-
-  .rumi-stage {
-    align-self: flex-end;
   }
 
   .pixel-button {
