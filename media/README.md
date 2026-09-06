@@ -42,29 +42,29 @@ displays 1:1 at every breakpoint. The menu screenshot can go up to 398 × 299.
 ## The eleven motion clips
 
 ```text
-pet-him.gif                sleeps-when-away.gif
-pick-him-up.gif            types-with-you.gif
-tuck-him-away.gif          watches-you.gif
-send-him-somewhere.gif     keeps-time.gif
-play-with-him.gif          gets-out-of-the-way.gif
-feed-him.gif
+pet-him.gif                keeps-time.gif
+pick-him-up.gif            gets-out-of-the-way.gif
+tuck-him-away.gif          types-with-you.gif
+send-him-somewhere.gif     watches-you.gif
+play-with-him.gif          reminds-you.gif
+feed-him.gif               makes-you-stretch.gif
+menu.gif                   knows-your-name.gif
 ```
+
+“Sleeps when you’re away” was removed from the page on the owner’s call: no clip
+could be produced for it, and the brief’s rule is that every entry is shown
+rather than described. To bring it back, restore the `<article>` in the Habits
+group and add `sleeps-when-away.gif`.
 
 `feed-him.gif` is used twice, in "Feed him" and in "Hungry at nine".
 
-## The four screenshots
+## The window entries are clips, not screenshots
 
-Motion for behaviours, stills for panels (brief §4.2): animating a static
-window costs weight and pulls the eye for nothing.
-
-```text
-reminds-you.png          the New Reminder window
-makes-you-stretch.png    the Breaks window
-knows-your-name.png      the Tell him your name window
-menu.png                 the right-click menu, everything in one shot
-```
-
-These load even under `prefers-reduced-motion`, since they do not move.
+Brief §4.2 called for stills of the New Reminder, Breaks and Tell him your name
+windows; §7’s shot list described the same entries as motion. The owner supplied
+clips for all four, including the menu, so the page follows §7 and every slot is
+now an animated GIF that honours `prefers-reduced-motion`. Nothing on the page
+is a static screenshot any more.
 
 **One thing to confirm before recording.** §4.2 names *New Reminder…*,
 *Breaks…* and *Tell him your name…* as the three screenshot entries, but §7's

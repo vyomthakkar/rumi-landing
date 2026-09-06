@@ -166,12 +166,22 @@
     return `${animationName}:${index}`;
   }
 
-  function draw(animationName, index = 0) {
-    const rect = manifest?.sheet?.frames?.[frameKey(animationName, index)];
-    if (!rect || !context || !atlas.complete) return;
+  function drawFrame(key) {
+    const rect = manifest?.sheet?.frames?.[key];
+    if (!rect || !context || !atlas.complete) return false;
     context.clearRect(0, 0, 50, 50);
     context.imageSmoothingEnabled = false;
     context.drawImage(atlas, rect[0], rect[1], rect[2], rect[3], 0, 0, 50, 50);
+    return true;
+  }
+
+  function draw(animationName, index = 0) {
+    return drawFrame(frameKey(animationName, index));
+  }
+
+  // The directional frames are named "look:dx,dy" outright, with no frame index.
+  function drawLook(direction) {
+    return drawFrame(`look:${direction.dx},${direction.dy}`);
   }
 
   function setAnimation(name, options = {}) {
@@ -358,8 +368,7 @@
       runtime.petLevel = 0;
       runtime.strokeDistance = 0;
       const direction = cursorDirection(now);
-      if (direction && (direction.dx !== 0 || direction.dy !== 0)) draw(`look:${direction.dx},${direction.dy}`);
-      else draw("idle", 0);
+      if (!direction || (direction.dx === 0 && direction.dy === 0) || !drawLook(direction)) draw("idle", 0);
       animationFrame = requestAnimationFrame(tick);
       return;
     }
@@ -376,9 +385,7 @@
     advanceAnimation(now);
 
     const direction = runtime.animation === "idle" && runtime.petLevel === 0 ? cursorDirection(now) : null;
-    if (direction && (direction.dx !== 0 || direction.dy !== 0)) {
-      draw(`look:${direction.dx},${direction.dy}`);
-    } else {
+    if (!direction || (direction.dx === 0 && direction.dy === 0) || !drawLook(direction)) {
       draw(runtime.animation, runtime.frame);
     }
     animationFrame = requestAnimationFrame(tick);
