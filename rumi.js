@@ -6,6 +6,12 @@
   const heartLayer = document.querySelector("#heart-layer");
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   const mobileLayout = window.matchMedia("(max-width: 800px)");
+
+  // Analytics. GoatCounter: cookieless, so no banner is needed. Put the site
+  // code here (the part before .goatcounter.com in your GoatCounter URL) to
+  // switch it on. Left empty, nothing is loaded and nothing is sent.
+  const GOATCOUNTER_SITE = "vyomthakkar";
+
   const atlas = new Image();
   atlas.src = "assets/sprites/sheet.png";
 
@@ -489,11 +495,36 @@
     }
   }
 
+  function setupAnalytics() {
+    if (!GOATCOUNTER_SITE) return;
+    const script = document.createElement("script");
+    script.async = true;
+    script.src = "https://gc.zgo.at/count.js";
+    script.dataset.goatcounter = `https://${GOATCOUNTER_SITE}.goatcounter.com/count`;
+    document.head.appendChild(script);
+  }
+
+  // Events go through GoatCounter's own count(), so they show up under Events
+  // in its dashboard rather than as page views. A no-op when it is not loaded.
+  function countEvent(path, title) {
+    if (!window.goatcounter || typeof window.goatcounter.count !== "function") return;
+    window.goatcounter.count({ path, title, event: true });
+  }
+
   function setupDownloadButtons() {
+    // The footer link downloads directly on every layout, so it only counts.
+    for (const link of document.querySelectorAll(".footer__dmg")) {
+      link.addEventListener("click", () => countEvent("download-dmg", "Download Rumi"));
+    }
+
     for (const button of document.querySelectorAll(".download-button")) {
       button.addEventListener("click", async (event) => {
-        if (!mobileLayout.matches) return;
+        if (!mobileLayout.matches) {
+          countEvent("download-dmg", "Download Rumi");
+          return;
+        }
         event.preventDefault();
+        countEvent("send-to-mac", "Send this page to your Mac");
         const copied = await copyPageLink();
         const section = button.closest("section") || button.parentElement;
         const status = section.querySelector(".copy-status");
@@ -558,6 +589,7 @@
   window.addEventListener("pointermove", trackPointer, { passive: true });
   window.addEventListener("pointerdown", trackPointer, { passive: true });
   document.addEventListener("visibilitychange", handleVisibility);
+  setupAnalytics();
   setupClipWindows();
   setupDownloadButtons();
 })();

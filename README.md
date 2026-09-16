@@ -1,6 +1,6 @@
 # Rumi landing page
 
-A static, one-page download site for Rumi. It uses no framework, build step, analytics, cookies, or third-party scripts. The supplied sprite atlas drives the live hero; all fonts and art are self-hosted.
+A static, one-page download site for Rumi. It uses no framework, build step, or cookies. The only third-party script is GoatCounter for visitor counts, and it is off until a site code is set (see Analytics below). The supplied sprite atlas drives the live hero; all fonts and art are self-hosted.
 
 ## Run it locally
 
@@ -35,15 +35,26 @@ Put the files in [`media/`](media/README.md) using the exact filenames listed th
 
 `media/README.md` also flags one unresolved conflict in the brief: §4.2 makes “Reminds you” and “Makes you stretch” screenshots, while §7’s shot list still describes them as motion clips. The page follows §4.2 and expects a `.png` for both.
 
-## Add the DMG
+## The DMG
 
-Put the notarized universal binary at:
+The DMG is published as a GitHub release asset, not kept in this repository:
 
 ```text
-download/Rumi-1.0.dmg
+https://github.com/vyomthakkar/rumi-landing/releases/download/v1.0/Rumi-1.0.dmg
 ```
 
-All three links already point to `/download/Rumi-1.0.dmg`. The included [`_headers`](_headers) file sets the requested MIME type and attachment filename on hosts that support the Cloudflare Pages/Netlify headers format. Configure equivalent response headers if the eventual host uses another format. Do not re-zip or alter the DMG.
+All three download links point there. Release assets are served with `Content-Disposition: attachment`, so the file downloads rather than opening, and the notarization ticket survives (checked with `stapler validate` on a downloaded copy). Releases also give an exact public download count, which is the reason for hosting it there. See [`download/README.md`](download/README.md) for reading the count and shipping a new version. Do not re-zip or alter the DMG.
+
+## Analytics
+
+Two numbers are tracked, by two different mechanisms, neither of which sets a cookie:
+
+- **Downloads** come from GitHub: every fetch of the release asset is counted server-side, with no script involved. `gh release view v1.0 --json assets` reads it.
+- **Visitors** come from [GoatCounter](https://www.goatcounter.com), a cookieless, open-source counter, so no consent banner is required. It is loaded by `rumi.js` only when `GOATCOUNTER_SITE` at the top of that file is set to your site code (the part before `.goatcounter.com`). Empty, nothing is loaded and nothing is sent.
+
+GoatCounter also receives two events, visible under Events in its dashboard: `download-dmg` for a click on any download link that actually downloads, and `send-to-mac` for the mobile buttons, which copy the page link instead. Because GitHub counts the real downloads, `download-dmg` is best read as a cross-check rather than the number of record.
+
+The brief (§2 principle 5, §6, §8) ruled out analytics; the owner chose to add this on 2026-09-16 with the lightest cookieless option available.
 
 ## Add the real photo and domain
 
