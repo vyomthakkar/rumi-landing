@@ -277,6 +277,43 @@ h4 {
   font-size: 15px;
 }
 
+/* The charity aside. Quiet on purpose: the download stays the one gold thing in
+   the hero, so the ask is a caption plus a link, and the heart is the only accent.
+   The heart is his own heart prop recoloured to his collar gold, drawn at 2x. */
+.chip-in {
+  max-width: 46ch;
+  margin-top: 30px;
+}
+
+.chip-in p {
+  margin: 0 0 8px;
+  color: var(--fur);
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.chip-in__link,
+.footer__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--navy);
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-color: var(--gold);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 5px;
+}
+
+.chip-in__link img,
+.footer__chip img {
+  width: 18px;
+  height: 18px;
+  flex: none;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+}
+
 .rumi-stage {
   --px: 8px;
   position: relative;
@@ -571,8 +608,15 @@ footer {
   justify-self: center;
 }
 
-.footer__dmg {
+.footer__links {
+  display: flex;
+  gap: 24px;
   justify-self: end;
+}
+
+.footer__chip {
+  color: var(--white);
+  font-weight: 400;
 }
 
 .footer__inner p {
@@ -649,6 +693,7 @@ footer {
 
   .download-facts,
   .copy-status,
+  .chip-in p,
   .how,
   .small-habits p,
   .system-note,
@@ -759,8 +804,11 @@ footer {
     text-align: center;
   }
 
-  .footer__dmg {
+  .footer__links {
     justify-self: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
   }
 }
 

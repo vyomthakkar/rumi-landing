@@ -516,6 +516,9 @@
     for (const link of document.querySelectorAll(".footer__dmg")) {
       link.addEventListener("click", () => countEvent("download-dmg", "Download Rumi"));
     }
+    for (const link of document.querySelectorAll(".chip-in__link, .footer__chip")) {
+      link.addEventListener("click", () => countEvent("chip-in", "Chip in for cats in need"));
+    }
 
     for (const button of document.querySelectorAll(".download-button")) {
       button.addEventListener("click", async (event) => {

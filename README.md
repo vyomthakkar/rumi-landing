@@ -49,6 +49,12 @@ All three download links point there. Release assets are served with `Content-Di
 
 `appcast.xml` at the site root is Rumi’s update feed. Every installed copy from 1.1.1 on has `https://rumithecat.com/appcast.xml` baked in as the address it checks once a day, so that path can never move. The file comes from the desktop repo with each release and points at the GitHub release asset; the DMG is EdDSA-signed inside the feed, so GitHub’s redirect is fine and the host is not a trust boundary. `scripts/release.sh` copies it into place as part of publishing a version. Smoke test after a push: *Check for Updates…* in the app should say “You’re up to date!”.
 
+## The charity link
+
+Under the download row, and once more in the footer, a link to a Dodo Payments checkout where a visitor can give any amount: `https://dodo.pe/cats-in-need`, a plain anchor opening in a new tab with `rel="noopener"`, never an iframe. Everything received goes to a cat charity, and the copy says "everything we receive" rather than "all proceeds" because fees and tax come out first. The heart beside it is Rumi's own heart prop (`assets/sprites/props/heart_2.png`) recoloured to his collar gold, with the shine turned to cream so every colour stays on-palette; it lives at `assets/heart-gold.png` and is drawn at exactly 2x. Clicks are counted as the GoatCounter event `chip-in`.
+
+The brief's principle 5 rules out a "support the developer" tip jar. This is not that — nothing goes to the developer — which is why it is on the page; the owner added it on 2026-09-17. No `redirect_url` is set because there is no `/thanks` page; add one only if that page exists.
+
 ## Analytics
 
 Two numbers are tracked, by two different mechanisms, neither of which sets a cookie:
