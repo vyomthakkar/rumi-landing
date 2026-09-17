@@ -271,6 +271,11 @@ h4 {
   line-height: 1.45;
 }
 
+.copy-status:empty {
+  min-height: 0;
+  margin: 0;
+}
+
 .copy-status {
   margin: 12px 0 0;
   color: var(--fur);
@@ -644,7 +649,12 @@ footer {
   .rumi-stage {
     --px: 6px;
     align-self: center;
+    margin-top: 36px;
     margin-bottom: 8px;
+  }
+
+  .chip-in {
+    margin-top: 22px;
   }
 }
 

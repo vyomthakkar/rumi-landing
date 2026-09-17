@@ -420,7 +420,7 @@
           observer.unobserve(entry.target);
         }
       },
-      { rootMargin: "200px", threshold: 0.01 }
+      { rootMargin: "600px", threshold: 0.01 }
     );
 
     for (const clipWindow of document.querySelectorAll(".clip-window")) observer.observe(clipWindow);
@@ -435,14 +435,25 @@
     });
   }
 
+  // While a clip or the photo is still on its way, the panel shows a flat
+  // silhouette of his idle pose in his stripe colour: clearly a placeholder,
+  // clearly him, never mistaken for the content. Under reduced motion the
+  // clip never loads, so there the panel keeps the real pose as its poster.
   function drawStillCanvases() {
     for (const still of document.querySelectorAll("canvas[data-frame]")) {
-      const rect = manifest.sheet.frames[still.dataset.frame];
+      const isPoster = reduceMotion.matches && !still.classList.contains("portrait-still");
+      const rect = manifest.sheet.frames[isPoster ? still.dataset.frame : "idle:0"];
       if (!rect) continue;
       const stillContext = still.getContext("2d");
       stillContext.imageSmoothingEnabled = false;
       stillContext.clearRect(0, 0, 50, 50);
       stillContext.drawImage(atlas, rect[0], rect[1], rect[2], rect[3], 0, 0, 50, 50);
+      if (!isPoster) {
+        stillContext.globalCompositeOperation = "source-in";
+        stillContext.fillStyle = "#58544d";
+        stillContext.fillRect(0, 0, 50, 50);
+        stillContext.globalCompositeOperation = "source-over";
+      }
     }
   }
 
@@ -469,7 +480,7 @@
           if (photo.complete) reveal();
         }
       },
-      { rootMargin: "300px" }
+      { rootMargin: "600px" }
     );
     observer.observe(panel);
   }

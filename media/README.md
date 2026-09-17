@@ -78,7 +78,13 @@ the behaviour, drop a `.gif` in instead and change those two slots in
 ## How the slots work
 
 Each slot is an `<img class="clip-media">` with a `data-src`. The script sets
-`src` only when the panel comes into view, so nothing below the fold is
-fetched on load. Until a file exists the panel shows a still sprite drawn from
-the atlas, and a missing file leaves that still in place rather than showing
-broken-image alt text. No HTML or CSS changes are needed to add a file.
+`src` only when the panel comes within 600 px of the viewport, so nothing far
+below the fold is fetched on load. No HTML or CSS changes are needed to add a
+file.
+
+Until a file arrives, the panel shows a flat silhouette of his idle pose in
+his stripe colour: clearly a placeholder, clearly him, never mistaken for the
+clip. A missing file leaves that silhouette in place rather than showing
+broken-image alt text. Under `prefers-reduced-motion` the clip never loads,
+so there each panel keeps the real pose named by its `data-frame`, in colour,
+as a poster.
