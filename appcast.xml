@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle">
+  <channel>
+    <title>Rumi</title>
+    <item>
+      <title>1.1.1</title>
+      <sparkle:version>3</sparkle:version>
+      <sparkle:shortVersionString>1.1.1</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
+      <description><![CDATA[<p>A fix for dragging Rumi to the top of a second display, and a clearer question when he asks about checking for updates.</p>]]></description>
+      <enclosure url="https://github.com/vyomthakkar/rumi-landing/releases/download/v1.1.1/Rumi-1.1.1.dmg" type="application/octet-stream" sparkle:edSignature="wP7Hi/JZfcG/JQCw/Az4hnMNbxZj/U4NOK3VlYKe9XCR/QogzEftzrYdP6iLGa7AdpPbdMQWUnORiJ7agD68CA==" length="2350625" />
+    </item>
+  </channel>
+</rss>

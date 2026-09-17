@@ -40,16 +40,20 @@ Put the files in [`media/`](media/README.md) using the exact filenames listed th
 The DMG is published as a GitHub release asset, not kept in this repository:
 
 ```text
-https://github.com/vyomthakkar/rumi-landing/releases/download/v1.0/Rumi-1.0.dmg
+https://github.com/vyomthakkar/rumi-landing/releases/download/v1.1.1/Rumi-1.1.1.dmg
 ```
 
 All three download links point there. Release assets are served with `Content-Disposition: attachment`, so the file downloads rather than opening, and the notarization ticket survives (checked with `stapler validate` on a downloaded copy). Releases also give an exact public download count, which is the reason for hosting it there. See [`download/README.md`](download/README.md) for reading the count and shipping a new version. Do not re-zip or alter the DMG.
+
+## The appcast
+
+`appcast.xml` at the site root is Rumi’s update feed. Every installed copy from 1.1.1 on has `https://rumithecat.com/appcast.xml` baked in as the address it checks once a day, so that path can never move. The file comes from the desktop repo with each release and points at the GitHub release asset; the DMG is EdDSA-signed inside the feed, so GitHub’s redirect is fine and the host is not a trust boundary. `scripts/release.sh` copies it into place as part of publishing a version. Smoke test after a push: *Check for Updates…* in the app should say “You’re up to date!”.
 
 ## Analytics
 
 Two numbers are tracked, by two different mechanisms, neither of which sets a cookie:
 
-- **Downloads** come from GitHub: every fetch of the release asset is counted server-side, with no script involved. `gh release view v1.0 --json assets` reads it.
+- **Downloads** come from GitHub: every fetch of the release asset is counted server-side, with no script involved. `gh release view v1.1.1 --json assets` reads it.
 - **Visitors** come from [GoatCounter](https://www.goatcounter.com), a cookieless, open-source counter, so no consent banner is required. It is loaded by `rumi.js` only when `GOATCOUNTER_SITE` at the top of that file is set to your site code (the part before `.goatcounter.com`). Empty, nothing is loaded and nothing is sent.
 
 GoatCounter also receives two events, visible under Events in its dashboard: `download-dmg` for a click on any download link that actually downloads, and `send-to-mac` for the mobile buttons, which copy the page link instead. Because GitHub counts the real downloads, `download-dmg` is best read as a cross-check rather than the number of record.
