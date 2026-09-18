@@ -33,9 +33,11 @@ die() { printf '\nFAILED: %s\n' "$*" >&2; exit 1; }
 [ -f "$APPCAST" ] || die "no appcast at $APPCAST"
 
 say "1. verifying $DMG"
-codesign -dv --verbose=2 "$DMG" 2>&1 | grep -q "Developer ID Application: Vyom Thakkar (6966ZNQY4T)" || die "not signed by the expected Developer ID"
+SIGN_OUT="$(codesign -dv --verbose=2 "$DMG" 2>&1 || true)"
+printf '%s' "$SIGN_OUT" | grep -q "Developer ID Application: Vyom Thakkar (6966ZNQY4T)" || die "not signed by the expected Developer ID"
 xcrun stapler validate "$DMG" >/dev/null 2>&1 || die "notarization ticket is not stapled"
-spctl -a -t install "$DMG" 2>&1 | grep -q "accepted" || die "Gatekeeper does not accept it"
+SPCTL_OUT="$(spctl -a -vvv -t install "$DMG" 2>&1)" || die "Gatekeeper does not accept it: $SPCTL_OUT"
+printf '%s' "$SPCTL_OUT" | grep -q "source=Notarized Developer ID" || die "Gatekeeper accepted it, but not as Notarized Developer ID: $SPCTL_OUT"
 SIZE=$(stat -f %z "$DMG"); SHA=$(shasum -a 256 "$DMG" | cut -c1-64)
 echo "   signed, stapled, accepted · $SIZE bytes · sha256 $SHA"
 

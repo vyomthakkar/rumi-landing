@@ -3,12 +3,12 @@
   <channel>
     <title>Rumi</title>
     <item>
-      <title>1.1.1</title>
-      <sparkle:version>3</sparkle:version>
-      <sparkle:shortVersionString>1.1.1</sparkle:shortVersionString>
+      <title>1.1.2</title>
+      <sparkle:version>4</sparkle:version>
+      <sparkle:shortVersionString>1.1.2</sparkle:shortVersionString>
       <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
-      <description><![CDATA[<p>A fix for dragging Rumi to the top of a second display, and a clearer question when he asks about checking for updates.</p>]]></description>
-      <enclosure url="https://github.com/vyomthakkar/rumi-landing/releases/download/v1.1.1/Rumi-1.1.1.dmg" type="application/octet-stream" sparkle:edSignature="wP7Hi/JZfcG/JQCw/Az4hnMNbxZj/U4NOK3VlYKe9XCR/QogzEftzrYdP6iLGa7AdpPbdMQWUnORiJ7agD68CA==" length="2350625" />
+      <description><![CDATA[<p>Rumi says a general goodbye and shares a general message now that he has friends beyond the household.</p>]]></description>
+      <enclosure url="https://github.com/vyomthakkar/rumi-landing/releases/download/v1.1.2/Rumi-1.1.2.dmg" type="application/octet-stream" sparkle:edSignature="7s1/GHwAbvyBqivqGcOO/quB265xdqi42DI08ahBRDPsbWLnpCvpcoCdL36X6GPFSpWa9fiMKgSMKyVN9ycMDg==" length="2351586" />
     </item>
   </channel>
 </rss>
